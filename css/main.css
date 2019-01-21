@@ -12,6 +12,11 @@ header{
 p{
     font-size: 1.15rem;
 }
+
+body {
+    position: relative;
+}
+
 .navbar{
     background: transparent !important;
     transition: 0.5s;
@@ -292,4 +297,36 @@ footer{
     color: #fff;
 }
 
+@media (min-width: 992px){
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: .1rem;
+    padding-left: .1rem;
+}
+}
 
+@media (max-width: 992px) {
+    .navbar-light .navbar-toggler {
+        background-color: #fff;
+        border-radius: 0;
+    }
+
+    .baner{
+        min-height: 100vh;
+        padding: 100px 0;
+    }
+
+    .contentBox h1{
+        font-size: 2rem;
+    }
+
+    .sec1 h2,
+    .sec2 h2{
+        font-size: 1.80rem;
+    }
+
+    .sec3 .form-control{
+        height: 40px;
+        border:1px solid #fff;
+    }
+
+}
