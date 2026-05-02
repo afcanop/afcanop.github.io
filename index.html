@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andrés Felipe Cano - Full Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,41 +15,46 @@
         }
 
         :root {
-            --primary-color: #0f172a;
-            --secondary-color: #1e293b;
-            --accent-color: #3b82f6;
-            --accent-light: #60a5fa;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-tertiary: #94a3b8;
-            --border-color: #334155;
-            --bg-card: #1e293b;
-            --transition: all 0.3s ease;
+            --bg-dark: #0a0e27;
+            --bg-darker: #050810;
+            --surface: #1a1f3a;
+            --surface-light: #242d4a;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #ff0080;
+            --accent-tertiary: #7c3aed;
+            --text-primary: #f8f9fa;
+            --text-secondary: #b0b8c8;
+            --text-tertiary: #7a8294;
+            --neon-cyan: #00d4ff;
+            --neon-magenta: #ff0080;
+            --neon-purple: #b040ff;
         }
 
-        @media (prefers-color-scheme: light) {
-            :root {
-                --primary-color: #ffffff;
-                --secondary-color: #f8fafc;
-                --accent-color: #3b82f6;
-                --accent-light: #1e40af;
-                --text-primary: #0f172a;
-                --text-secondary: #334155;
-                --text-tertiary: #64748b;
-                --border-color: #e2e8f0;
-                --bg-card: #f8fafc;
-            }
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            font-family: 'Syne', sans-serif;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
             color: var(--text-primary);
             line-height: 1.6;
-            min-height: 100vh;
-            padding: 0;
-            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 128, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         /* Navigation */
@@ -55,15 +63,15 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(5, 8, 16, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
             z-index: 1000;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
         }
 
         nav .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -71,440 +79,721 @@
         }
 
         nav .logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent-color);
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-decoration: none;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 3rem;
         }
 
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: var(--transition);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transition: width 0.3s ease;
         }
 
         nav a:hover {
-            color: var(--accent-color);
+            color: var(--neon-cyan);
         }
 
-        /* Main Container */
+        nav a:hover::after {
+            width: 100%;
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 2;
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 120px;
-            padding: 4rem 0;
+            min-height: 100vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
+        .hero-content {
+            z-index: 2;
         }
 
-        .hero-content .title {
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            color: var(--neon-cyan);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            animation: slideInDown 0.8s ease-out;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: slideInUp 0.8s ease-out 0.1s both;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-magenta) 50%, var(--neon-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
             font-size: 1.5rem;
-            color: var(--accent-color);
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
+            font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: slideInUp 0.8s ease-out 0.2s both;
         }
 
-        .cta-buttons {
+        .hero-subtitle::after {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), transparent);
+            border-radius: 2px;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 550px;
+            margin-bottom: 2.5rem;
+            animation: slideInUp 0.8s ease-out 0.3s both;
+        }
+
+        .cta-group {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
+            flex-wrap: wrap;
+            animation: slideInUp 0.8s ease-out 0.4s both;
         }
 
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 1.2rem 2.5rem;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
             text-decoration: none;
-            display: inline-block;
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Syne', sans-serif;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
-            background: var(--accent-color);
-            color: white;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
         .btn-primary:hover {
-            background: var(--accent-light);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.4);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--accent-color);
-            border: 2px solid var(--accent-color);
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
         }
 
         .btn-secondary:hover {
-            background: var(--accent-color);
-            color: white;
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            transform: translateY(-4px);
         }
 
-        .stats {
+        .btn-icon {
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover .btn-icon {
+            transform: scale(1.2) rotate(180deg);
+        }
+
+        /* Tech Stack */
+        .tech-stack {
             display: flex;
-            gap: 3rem;
-            margin-top: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            animation: slideInUp 0.8s ease-out 0.5s both;
         }
 
-        .stat {
-            text-align: left;
+        .tech-badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--neon-cyan);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .tech-badge:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Stats */
+        .stats-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            animation: slideInUp 0.8s ease-out 0.6s both;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-4px);
         }
 
         .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent-color);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            color: var(--text-tertiary);
             font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
         }
 
+        /* Hero Visual */
         .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .code-block {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            color: var(--accent-light);
-            max-width: 100%;
-            overflow-x: auto;
             position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .code-block::before {
+        .visual-card {
+            position: absolute;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-light) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 280px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .visual-card-1 {
+            top: 0;
+            left: 0;
+            animation: float1 6s ease-in-out infinite;
+        }
+
+        .visual-card-2 {
+            top: 180px;
+            left: 100px;
+            animation: float2 7s ease-in-out infinite;
+        }
+
+        .visual-card-3 {
+            top: 0;
+            right: 0;
+            animation: float3 8s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-40px) rotate(-2deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0px) rotate(3deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0px) rotate(4deg); }
+            50% { transform: translateY(-35px) rotate(2deg); }
+        }
+
+        .card-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .card-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .card-item {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-item::before {
+            content: '⟡';
+            color: var(--neon-magenta);
+            font-size: 0.7rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* Experience */
+        .experience-list {
+            display: grid;
+            gap: 2.5rem;
+        }
+
+        .experience-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 30px;
-            background: var(--border-color);
-            border-radius: 8px 8px 0 0;
-            display: flex;
-            align-items: center;
-            padding: 0 1rem;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
         }
 
-        /* Skills Section */
-        .section {
-            padding: 4rem 0;
-            border-top: 1px solid var(--border-color);
+        .experience-card:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateX(10px);
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            color: var(--text-primary);
+        .experience-card:hover::before {
+            transform: scaleX(1);
         }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-            transition: var(--transition);
-        }
-
-        .skill-card:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-4px);
-        }
-
-        .skill-card h3 {
-            font-size: 1.25rem;
+        .experience-header {
             margin-bottom: 1rem;
-            color: var(--accent-color);
         }
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tag {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-light);
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            border: 1px solid var(--accent-color);
-        }
-
-        /* Experience Section */
-        .experience-timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .experience-item {
-            margin-bottom: 3rem;
-            padding-left: 2rem;
-            border-left: 2px solid var(--accent-color);
-            position: relative;
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 0;
-            width: 14px;
-            height: 14px;
-            background: var(--accent-color);
-            border-radius: 50%;
-        }
-
-        .experience-item h3 {
-            font-size: 1.25rem;
+        .experience-title {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .experience-item .company {
-            color: var(--accent-color);
-            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .experience-item .date {
-            color: var(--text-tertiary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+        .experience-company {
+            font-size: 1rem;
+            color: var(--neon-cyan);
+            font-weight: 700;
         }
 
-        .experience-item .description {
+        .experience-period {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-description {
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
         }
 
         .achievements {
             list-style: none;
-            margin-left: 0;
         }
 
         .achievements li {
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
+            padding: 0.5rem 0;
             padding-left: 1.5rem;
             position: relative;
         }
 
         .achievements li::before {
-            content: '→';
+            content: '▸';
             position: absolute;
             left: 0;
-            color: var(--accent-color);
+            color: var(--neon-magenta);
+            font-size: 1.2rem;
         }
 
-        /* Projects Section */
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-8px);
+        }
+
+        .skill-card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: var(--neon-cyan);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Projects */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 2rem;
         }
 
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            background: var(--surface);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 12px;
             overflow: hidden;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
         }
 
         .project-card:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-4px);
+            transform: translateY(-12px);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 212, 255, 0.2);
         }
 
         .project-header {
-            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 128, 0.1));
             padding: 2rem;
-            color: white;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
         }
 
-        .project-header h3 {
-            font-size: 1.5rem;
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
+        }
+
+        .project-category {
+            font-size: 0.85rem;
+            color: var(--neon-magenta);
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .project-content {
             padding: 2rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
         }
 
-        .project-content p {
+        .project-description {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
-            flex-grow: 1;
+            line-height: 1.7;
         }
 
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.6rem;
             margin-bottom: 1.5rem;
         }
 
-        .tech-badge {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-light);
-            padding: 0.3rem 0.7rem;
+        .project-tech-badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: var(--neon-cyan);
+            padding: 0.4rem 0.8rem;
             border-radius: 4px;
-            font-size: 0.8rem;
-            border: 1px solid var(--accent-color);
+            font-size: 0.75rem;
+            font-weight: 700;
         }
 
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-links a {
-            color: var(--accent-color);
+        .project-link {
+            color: var(--neon-cyan);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
         }
 
-        .project-links a:hover {
-            color: var(--accent-light);
+        .project-link:hover {
+            gap: 1rem;
         }
 
         /* Contact Section */
         .contact-section {
             text-align: center;
-            padding: 4rem 0;
         }
 
-        .contact-section p {
+        .contact-description {
             font-size: 1.2rem;
             color: var(--text-secondary);
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .contact-links {
+        .contact-methods {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 2.5rem;
             flex-wrap: wrap;
             margin-bottom: 3rem;
         }
 
-        .contact-links a {
-            color: var(--accent-color);
+        .contact-link {
+            color: var(--neon-cyan);
             text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
         }
 
-        .contact-links a:hover {
-            color: var(--accent-light);
+        .contact-link:hover {
+            color: var(--neon-magenta);
             transform: translateX(4px);
         }
 
         /* Footer */
         footer {
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
             padding: 2rem 0;
             text-align: center;
             color: var(--text-tertiary);
-            margin-top: 4rem;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            nav ul {
-                gap: 1rem;
-                font-size: 0.8rem;
-            }
-
+        @media (max-width: 1024px) {
             .hero {
                 grid-template-columns: 1fr;
-                margin-top: 100px;
                 gap: 2rem;
+                padding: 100px 0 60px;
             }
 
-            .hero-content h1 {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-visual {
+                height: 400px;
+            }
+
+            .visual-card {
+                width: 220px;
+                padding: 1.5rem;
+            }
+
+            .stats-group {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
                 font-size: 2.5rem;
             }
 
-            .stats {
-                gap: 2rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
+            .cta-group {
                 flex-direction: column;
             }
 
             .btn {
-                text-align: center;
+                width: 100%;
+                justify-content: center;
             }
 
-            .contact-links {
-                flex-direction: column;
-                gap: 1rem;
+            .stats-group {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
 
             .projects-grid {
@@ -512,13 +801,12 @@
             }
         }
 
-        /* Scroll smooth */
-        html {
-            scroll-behavior: smooth;
+        /* Scroll animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
         }
 
-        /* Loading animation */
-        @keyframes fadeInUp {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -528,17 +816,13 @@
                 transform: translateY(0);
             }
         }
-
-        .hero, .section {
-            animation: fadeInUp 0.6s ease-out;
-        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <a href="#home" class="logo">AFC</a>
+            <a href="#home" class="logo">AFCANOP</a>
             <ul>
                 <li><a href="#about">Sobre mí</a></li>
                 <li><a href="#experience">Experiencia</a></li>
@@ -551,116 +835,174 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="container" style="grid-column: 1;">
-            <div class="hero-content">
-                <h1>Andrés Felipe Cano</h1>
-                <div class="title">Full Stack Developer</div>
-                <p>Ingeniero de Software con 6+ años de experiencia desarrollando aplicaciones web escalables. Especializado en Python, PHP, Angular y JavaScript con enfoque en soluciones de alto rendimiento.</p>
-                
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">Descargar CV</a>
-                    <a href="https://github.com/afcanop" class="btn btn-secondary">Ver GitHub</a>
-                </div>
+        <div class="hero-content">
+            <div class="hero-badge">● Disponible para nuevos retos</div>
+            
+            <h1>
+                <span class="gradient">Andrés Felipe Cano</span>
+            </h1>
+            
+            <div class="hero-subtitle">
+                Full Stack Developer & Engineer
+            </div>
+            
+            <p class="hero-description">
+                Transformo ideas en soluciones web escalables y eficientes. Con 6+ años de experiencia especializado en Python, PHP, Angular y JavaScript, creo productos que marcan la diferencia.
+            </p>
 
-                <div class="stats">
-                    <div class="stat">
-                        <div class="stat-number">6+</div>
-                        <div class="stat-label">Años de experiencia</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label">Proyectos completados</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Responsabilidad</div>
-                    </div>
+            <div class="tech-stack">
+                <div class="tech-badge">Python</div>
+                <div class="tech-badge">PHP</div>
+                <div class="tech-badge">Angular</div>
+                <div class="tech-badge">JavaScript</div>
+                <div class="tech-badge">Django</div>
+                <div class="tech-badge">Laravel</div>
+            </div>
+
+            <div class="cta-group">
+                <a href="#contact" class="btn btn-primary">
+                    <span>Descargar CV</span>
+                    <span class="btn-icon">↓</span>
+                </a>
+                <a href="https://github.com/afcanop" target="_blank" class="btn btn-secondary">
+                    <span>Ver en GitHub</span>
+                    <span class="btn-icon">→</span>
+                </a>
+            </div>
+
+            <div class="stats-group">
+                <div class="stat-item">
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label">Años de Experiencia</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Proyectos Completados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Satisfacción Cliente</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Años en Empresas</div>
                 </div>
             </div>
         </div>
+
         <div class="hero-visual">
-            <div class="code-block">
-const developer = {<br>
-&nbsp;&nbsp;name: 'Andrés',<br>
-&nbsp;&nbsp;skills: ['Python', 'PHP', 'Angular'],<br>
-&nbsp;&nbsp;experience: 6,<br>
-&nbsp;&nbsp;passionate: true<br>
-};
+            <div class="visual-card visual-card-1">
+                <div class="card-label">BACKEND</div>
+                <div class="card-items">
+                    <div class="card-item">Python</div>
+                    <div class="card-item">Django</div>
+                    <div class="card-item">PHP/Laravel</div>
+                    <div class="card-item">Node.js</div>
+                </div>
+            </div>
+            <div class="visual-card visual-card-2">
+                <div class="card-label">FRONTEND</div>
+                <div class="card-items">
+                    <div class="card-item">Angular</div>
+                    <div class="card-item">React</div>
+                    <div class="card-item">JavaScript</div>
+                    <div class="card-item">CSS3/HTML5</div>
+                </div>
+            </div>
+            <div class="visual-card visual-card-3">
+                <div class="card-label">DATABASE</div>
+                <div class="card-items">
+                    <div class="card-item">MySQL</div>
+                    <div class="card-item">MongoDB</div>
+                    <div class="card-item">SQL Server</div>
+                    <div class="card-item">Redis</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="section" id="about">
+    <section id="about">
         <div class="container">
-            <h2 class="section-title">Sobre mí</h2>
-            <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 800px; line-height: 1.8;">
-                Soy un desarrollador apasionado por crear soluciones tecnológicas que impacten positivamente. Con formación en Ingeniería de Software y especialización técnica en stack completo, he trabajado en empresas de diferentes sectores, desde startups hasta medianas empresas, liderando proyectos de modernización tecnológica y optimización de procesos.
-                <br><br>
-                Me destaco por mi responsabilidad, comunicación efectiva y capacidad para entregar soluciones documentadas y mantenibles. Disfruto aprendiendo nuevas tecnologías y compartiendo conocimiento con mis colegas.
+            <div class="section-header">
+                <h2 class="section-title">Sobre <span>mí</span></h2>
+                <p class="section-description">
+                    Ingeniero de Software apasionado por crear soluciones tecnológicas que generen impacto. He trabajado en startups y medianas empresas modernizando aplicaciones y optimizando procesos operativos.
+                </p>
+            </div>
+            <p style="font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; max-width: 900px;">
+                Me destaco por mi responsabilidad, comunicación efectiva y capacidad para entregar soluciones documentadas y mantenibles. Disfruto aprendiendo nuevas tecnologías y liderando iniciativas de mejora continua en equipos de desarrollo.
             </p>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section class="section" id="experience">
+    <section id="experience">
         <div class="container">
-            <h2 class="section-title">Experiencia Profesional</h2>
-            <div class="experience-timeline">
-                
-                <div class="experience-item">
-                    <h3>Asesor TICS y Desarrollador Backend</h3>
-                    <div class="company">Laboratorio Médico Echavarría</div>
-                    <div class="date">Febrero 2026 – Mayo 2026 | Medellín, Colombia</div>
-                    <div class="description">
-                        Desarrollé soluciones en Python para automatizar procesos operativos, documentación técnica y soporte especializado.
+            <div class="section-header">
+                <h2 class="section-title">Mi <span>Experiencia</span></h2>
+                <p class="section-description">6+ años transformando requisitos en soluciones de calidad</p>
+            </div>
+            
+            <div class="experience-list">
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-title">Asesor TICS y Desarrollador Backend</div>
+                        <div class="experience-company">Laboratorio Médico Echavarría</div>
+                    </div>
+                    <div class="experience-period">Febrero 2026 – Mayo 2026 | Medellín, Colombia</div>
+                    <div class="experience-description">
+                        Automatización de procesos operativos con Python, implementación de mejores prácticas de versionamiento y documentación técnica.
                     </div>
                     <ul class="achievements">
                         <li>Automatización de tareas repetitivas con aumento de eficiencia del 60%</li>
-                        <li>Implementación de control de versiones con GitHub y repositorios en la nube</li>
-                        <li>Documentación de código y procedimientos técnicos para continuidad operativa</li>
+                        <li>Implementación de control de versiones con GitHub</li>
                         <li>Soporte técnico con 95% de satisfacción del usuario</li>
                     </ul>
                 </div>
 
-                <div class="experience-item">
-                    <h3>Desarrollador Web Full-Stack</h3>
-                    <div class="company">Semántica Digital S.A.S</div>
-                    <div class="date">Febrero 2019 – Noviembre 2025 | Medellín, Colombia</div>
-                    <div class="description">
-                        Desarrollo y mantenimiento de aplicaciones web complejas usando tecnologías modernas.
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-title">Desarrollador Web Full-Stack</div>
+                        <div class="experience-company">Semántica Digital S.A.S</div>
+                    </div>
+                    <div class="experience-period">Febrero 2019 – Noviembre 2025 | Medellín, Colombia</div>
+                    <div class="experience-description">
+                        Desarrollo y mantenimiento de aplicaciones web complejas con modernización a frameworks actuales.
                     </div>
                     <ul class="achievements">
-                        <li>Actualización de aplicaciones a Angular: 25% mejora de rendimiento</li>
-                        <li>Refactorización SQL a ORM: 40% reducción en tiempos de consulta</li>
-                        <li>Soporte y ajustes en 5+ proyectos mejorando estabilidad</li>
-                        <li>Code reviews bidireccionales y mejora continua del equipo</li>
+                        <li>Actualización a Angular: 25% mejora de rendimiento</li>
+                        <li>Refactorización SQL a ORM: 40% reducción en tiempos</li>
+                        <li>Code reviews bidireccionales con el equipo</li>
                     </ul>
                 </div>
 
-                <div class="experience-item">
-                    <h3>Asistente de Sistemas y Desarrollo</h3>
-                    <div class="company">Kiero International Group</div>
-                    <div class="date">Febrero 2018 – Febrero 2019 | Medellín, Colombia</div>
-                    <div class="description">
-                        Soporte técnico a usuarios internos y desarrollo de módulos web.
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-title">Asistente de Sistemas y Desarrollo</div>
+                        <div class="experience-company">Kiero International Group</div>
+                    </div>
+                    <div class="experience-period">Febrero 2018 – Febrero 2019 | Medellín, Colombia</div>
+                    <div class="experience-description">
+                        Soporte técnico a usuarios internos y desarrollo de módulos web con PHP y MySQL.
                     </div>
                     <ul class="achievements">
-                        <li>Soporte técnico a 30+ usuarios garantizando continuidad operativa</li>
-                        <li>Desarrollo de módulos web con PHP (Laravel), JavaScript y MySQL</li>
+                        <li>Soporte a 30+ usuarios garantizando continuidad operativa</li>
+                        <li>Desarrollo de módulos con Laravel y JavaScript</li>
                     </ul>
                 </div>
 
-                <div class="experience-item">
-                    <h3>Desarrollador Web</h3>
-                    <div class="company">Emtelco</div>
-                    <div class="date">Noviembre 2016 – Abril 2017 | Medellín, Colombia</div>
-                    <div class="description">
-                        Desarrollo de interfaces web responsivas y funcionales.
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div class="experience-title">Desarrollador Web</div>
+                        <div class="experience-company">Emtelco</div>
+                    </div>
+                    <div class="experience-period">Noviembre 2016 – Abril 2017 | Medellín, Colombia</div>
+                    <div class="experience-description">
+                        Desarrollo de interfaces web responsivas siguiendo estándares modernos.
                     </div>
                     <ul class="achievements">
-                        <li>Interfaces web responsivas con PHP, CSS y JavaScript</li>
-                        <li>Implementación según requerimientos con entrega a tiempo</li>
+                        <li>Interfaces responsivas con PHP, CSS y JavaScript</li>
                         <li>Validación de estándares web y compatibilidad cross-browser</li>
                     </ul>
                 </div>
@@ -669,75 +1011,77 @@ const developer = {<br>
     </section>
 
     <!-- Skills Section -->
-    <section class="section" id="skills">
+    <section id="skills">
         <div class="container">
-            <h2 class="section-title">Stack Técnico</h2>
+            <div class="section-header">
+                <h2 class="section-title">Stack <span>Técnico</span></h2>
+                <p class="section-description">Tecnologías en las que trabajo a diario</p>
+            </div>
+
             <div class="skills-grid">
                 <div class="skill-card">
-                    <h3>Backend</h3>
+                    <div class="skill-card-title">Backend</div>
                     <div class="skill-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">PHP</span>
-                        <span class="tag">Django</span>
-                        <span class="tag">Laravel</span>
-                        <span class="tag">Node.js</span>
-                        <span class="tag">REST APIs</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">REST APIs</span>
                     </div>
                 </div>
 
                 <div class="skill-card">
-                    <h3>Frontend</h3>
+                    <div class="skill-card-title">Frontend</div>
                     <div class="skill-tags">
-                        <span class="tag">Angular</span>
-                        <span class="tag">React</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">HTML5</span>
-                        <span class="tag">CSS3</span>
-                        <span class="tag">Bootstrap</span>
+                        <span class="skill-tag">Angular</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">Bootstrap</span>
                     </div>
                 </div>
 
                 <div class="skill-card">
-                    <h3>Bases de Datos</h3>
+                    <div class="skill-card-title">Bases de Datos</div>
                     <div class="skill-tags">
-                        <span class="tag">MySQL</span>
-                        <span class="tag">SQL Server</span>
-                        <span class="tag">MongoDB</span>
-                        <span class="tag">SQLAlchemy</span>
-                        <span class="tag">Eloquent ORM</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">SQL Server</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">SQLAlchemy</span>
+                        <span class="skill-tag">Eloquent ORM</span>
                     </div>
                 </div>
 
                 <div class="skill-card">
-                    <h3>DevOps & Herramientas</h3>
+                    <div class="skill-card-title">DevOps & Herramientas</div>
                     <div class="skill-tags">
-                        <span class="tag">Git/GitHub</span>
-                        <span class="tag">Linux</span>
-                        <span class="tag">Postman</span>
-                        <span class="tag">JIRA</span>
-                        <span class="tag">Docker</span>
+                        <span class="skill-tag">Git/GitHub</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">JIRA</span>
                     </div>
                 </div>
 
                 <div class="skill-card">
-                    <h3>Metodologías</h3>
+                    <div class="skill-card-title">Metodologías</div>
                     <div class="skill-tags">
-                        <span class="tag">Agile/Scrum</span>
-                        <span class="tag">Clean Code</span>
-                        <span class="tag">Code Review</span>
-                        <span class="tag">Testing</span>
-                        <span class="tag">Documentación</span>
+                        <span class="skill-tag">Agile/Scrum</span>
+                        <span class="skill-tag">Clean Code</span>
+                        <span class="skill-tag">Code Review</span>
+                        <span class="skill-tag">Testing</span>
                     </div>
                 </div>
 
                 <div class="skill-card">
-                    <h3>Especialidades</h3>
+                    <div class="skill-card-title">Especialidades</div>
                     <div class="skill-tags">
-                        <span class="tag">Web Scraping</span>
-                        <span class="tag">Automatización</span>
-                        <span class="tag">Performance</span>
-                        <span class="tag">Integración BD</span>
-                        <span class="tag">Refactoring</span>
+                        <span class="skill-tag">Web Scraping</span>
+                        <span class="skill-tag">Automatización</span>
+                        <span class="skill-tag">Refactoring</span>
+                        <span class="skill-tag">Optimización</span>
                     </div>
                 </div>
             </div>
@@ -745,152 +1089,144 @@ const developer = {<br>
     </section>
 
     <!-- Projects Section -->
-    <section class="section" id="projects">
+    <section id="projects">
         <div class="container">
-            <h2 class="section-title">Proyectos Destacados</h2>
-            <div class="projects-grid">
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Optimización de Aplicación Angular</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Modernización y optimización de plataforma web existente, mejorando significativamente el rendimiento y experiencia del usuario.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">Angular</span>
-                            <span class="tech-badge">TypeScript</span>
-                            <span class="tech-badge">PHP</span>
-                            <span class="tech-badge">MySQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#projects">Ver más →</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Refactorización de Base de Datos</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Migración de consultas SQL tradicionales a ORM, mejorando seguridad, mantenibilidad y reduciendo tiempos de respuesta en 40%.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">Laravel</span>
-                            <span class="tech-badge">Eloquent ORM</span>
-                            <span class="tech-badge">MySQL</span>
-                            <span class="tech-badge">PHP</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#projects">Ver más →</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Automatización de Procesos Python</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Desarrollo de soluciones de automatización para tareas repetitivas, aumentando eficiencia operativa e implementando mejores prácticas de versionamiento.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">Scripting</span>
-                            <span class="tech-badge">GitHub</span>
-                            <span class="tech-badge">Linux</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#projects">Ver más →</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Soporte Multi-Proyecto</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Mantenimiento y mejora de 5+ aplicaciones web existentes, garantizando estabilidad, solucionando bugs críticos y optimizando rendimiento.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">Full-Stack</span>
-                            <span class="tech-badge">Debugging</span>
-                            <span class="tech-badge">Code Review</span>
-                            <span class="tech-badge">Testing</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#projects">Ver más →</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Desarrollo de Módulos Web</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Desarrollo de componentes y módulos web responsive utilizando PHP, Laravel, JavaScript y estándares modernos de desarrollo web.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">PHP</span>
-                            <span class="tech-badge">Laravel</span>
-                            <span class="tech-badge">JavaScript</span>
-                            <span class="tech-badge">Bootstrap</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#projects">Ver más →</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Web Scraping & Integración</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Desarrollo de soluciones de scraping web y automatización de procesos de integración de datos con múltiples fuentes.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">Web Scraping</span>
-                            <span class="tech-badge">APIs</span>
-                            <span class="tech-badge">Automatización</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#projects">Ver más →</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="section-header">
+                <h2 class="section-title">Proyectos <span>Destacados</span></h2>
+                <p class="section-description">Soluciones que he desarrollado reflejando mi experiencia</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Education Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Formación Académica</h2>
-            <div class="experience-timeline">
-                <div class="experience-item">
-                    <h3>Ingeniero de Software</h3>
-                    <div class="company">Politécnico Grancolombiano</div>
-                    <div class="date">Febrero 2021 – Agosto 2023 | Medellín, Colombia</div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-category">MODERNIZACIÓN</div>
+                        <div class="project-title">Optimización Angular</div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Modernización y optimización de plataforma web, mejorando rendimiento del 25% y reduciendo bugs en 35%.
+                        </p>
+                        <div class="project-tech">
+                            <span class="project-tech-badge">Angular</span>
+                            <span class="project-tech-badge">TypeScript</span>
+                            <span class="project-tech-badge">PHP</span>
+                            <span class="project-tech-badge">MySQL</span>
+                        </div>
+                        <a href="#" class="project-link">Ver proyecto →</a>
+                    </div>
                 </div>
-                <div class="experience-item">
-                    <h3>Técnico en Análisis y Desarrollo de Sistemas de Información</h3>
-                    <div class="company">SENA</div>
-                    <div class="date">Febrero 2015 – Octubre 2017 | Medellín, Colombia</div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-category">REFACTORIZACIÓN</div>
+                        <div class="project-title">Migración a ORM</div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Migración de consultas SQL a ORM, mejorando seguridad y reduciendo tiempos de respuesta en 40%.
+                        </p>
+                        <div class="project-tech">
+                            <span class="project-tech-badge">Laravel</span>
+                            <span class="project-tech-badge">Eloquent</span>
+                            <span class="project-tech-badge">MySQL</span>
+                            <span class="project-tech-badge">PHP</span>
+                        </div>
+                        <a href="#" class="project-link">Ver proyecto →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-category">AUTOMATIZACIÓN</div>
+                        <div class="project-title">Scripts Python</div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Soluciones de automatización de procesos repetitivos con aumento de eficiencia operativa del 60%.
+                        </p>
+                        <div class="project-tech">
+                            <span class="project-tech-badge">Python</span>
+                            <span class="project-tech-badge">Scripting</span>
+                            <span class="project-tech-badge">GitHub</span>
+                            <span class="project-tech-badge">Linux</span>
+                        </div>
+                        <a href="#" class="project-link">Ver proyecto →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-category">MANTENIMIENTO</div>
+                        <div class="project-title">Multi-Proyecto Support</div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Mantenimiento y mejora de 5+ aplicaciones web, garantizando estabilidad y optimizando rendimiento.
+                        </p>
+                        <div class="project-tech">
+                            <span class="project-tech-badge">Full-Stack</span>
+                            <span class="project-tech-badge">Debugging</span>
+                            <span class="project-tech-badge">Code Review</span>
+                            <span class="project-tech-badge">Testing</span>
+                        </div>
+                        <a href="#" class="project-link">Ver proyecto →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-category">DESARROLLO</div>
+                        <div class="project-title">Módulos Web</div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Desarrollo de componentes responsive utilizando Laravel, JavaScript y estándares modernos.
+                        </p>
+                        <div class="project-tech">
+                            <span class="project-tech-badge">PHP</span>
+                            <span class="project-tech-badge">Laravel</span>
+                            <span class="project-tech-badge">JavaScript</span>
+                            <span class="project-tech-badge">Bootstrap</span>
+                        </div>
+                        <a href="#" class="project-link">Ver proyecto →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-category">INTEGRACIÓN</div>
+                        <div class="project-title">Web Scraping</div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Soluciones de scraping web e integración de datos desde múltiples fuentes.
+                        </p>
+                        <div class="project-tech">
+                            <span class="project-tech-badge">Python</span>
+                            <span class="project-tech-badge">Scraping</span>
+                            <span class="project-tech-badge">APIs</span>
+                            <span class="project-tech-badge">Automatización</span>
+                        </div>
+                        <a href="#" class="project-link">Ver proyecto →</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="section contact-section" id="contact">
+    <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="section-title">Ponte en contacto</h2>
-            <p>¿Tienes un proyecto en mente? Me encantaría conversar contigo.</p>
-            <div class="contact-links">
-                <a href="mailto:afcanop@gmail.com">✉️ afcanop@gmail.com</a>
-                <a href="tel:+573016367374">📞 +57 301 636 7374</a>
-                <a href="https://github.com/afcanop" target="_blank">💻 GitHub</a>
-                <a href="https://linkedin.com" target="_blank">💼 LinkedIn</a>
-                <a href="https://twitter.com" target="_blank">𝕏 Twitter</a>
+            <div class="section-header">
+                <h2 class="section-title">Vamos a <span>conectar</span></h2>
+                <p class="contact-description">¿Tienes un proyecto en mente? Me encantaría conversar contigo</p>
+            </div>
+
+            <div class="contact-methods">
+                <a href="mailto:afcanop@gmail.com" class="contact-link">✉️ Email</a>
+                <a href="tel:+573016367374" class="contact-link">📞 WhatsApp</a>
+                <a href="https://github.com/afcanop" target="_blank" class="contact-link">💻 GitHub</a>
+                <a href="https://linkedin.com" target="_blank" class="contact-link">💼 LinkedIn</a>
             </div>
         </div>
     </section>
@@ -903,38 +1239,28 @@ const developer = {<br>
     </footer>
 
     <script>
-        // Smooth scroll para links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         });
 
-        // Active nav link
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
                 }
             });
+        }, { threshold: 0.1 });
 
-            document.querySelectorAll('nav a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === current) {
-                    link.style.color = 'var(--accent-color)';
-                }
-            });
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
         });
     </script>
 </body>
